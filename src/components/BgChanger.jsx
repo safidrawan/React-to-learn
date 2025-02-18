@@ -21,6 +21,12 @@ function BgChanger() {
           >
             Green
           </button>
+          <button
+            onClick={() => setBgColor("bg-gray-500")}
+            className="bg-gray-500 outline-none px-4 py-1  shadow-lg rounded-full"
+          >
+            Reset
+          </button>
         </div>
       </div>
     </div>

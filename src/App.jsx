@@ -5,7 +5,7 @@ import BgChanger from './components/BgChanger'
 function App() {
   return (
     <>
-    <Card />
+    <BgChanger />
     </>
   )
 }
