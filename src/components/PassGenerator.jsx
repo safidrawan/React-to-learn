@@ -47,7 +47,7 @@ function PassGenerator() {
             type="text"
             readOnly
           />
-          <button className="bg-blue-600 py-2 px-3 rounded-r-2xl">Copy</button>
+          <button className="bg-blue-600 py-2 px-3 rounded-r-2xl cursor-pointer">Copy</button>
           <div className="flex gap-2 mt-5 text-orange-300">
             <input
               type="range"
@@ -88,6 +88,7 @@ function PassGenerator() {
             <label htmlFor="chars">Symbols</label>
           </div>
         </div>
+          <button className="bg-blue-600 py-2 px-6 rounded-2xl cursor-pointer" onClick={()=>generatePass()}>Generate Password</button>
       </div>
     </div>
   );
