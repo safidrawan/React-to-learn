@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 function PassGenerator() {
   const [length, setLength] = useState(8);
@@ -6,17 +6,14 @@ function PassGenerator() {
   const [isSymbolAllowed, setIsSymbolAllowed] = useState(0);
   const [password, setPassword] = useState("");
 
-  console.log(isNumberAllowed + " " + isSymbolAllowed);
-
-  function generatePass() {
-    const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
-    const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const generatePass = useCallback(() => {
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     const numbers = "0123456789";
     const symbols = "!@#$%^&*()_+-=[]{}|;:,.<>?/~`";
     let pass = "";
 
     let allChars = "";
-    allChars += lowercaseChars + uppercaseChars;
+    allChars += letters;
 
     isNumberAllowed ? (allChars += numbers) : "";
     isSymbolAllowed ? (allChars += symbols) : "";
@@ -26,13 +23,16 @@ function PassGenerator() {
       pass += allChars[randomIndex];
     }
     setPassword(pass);
-  }
+  });
 
   function changePermission(prevValue) {
     return prevValue ? 0 : 1;
   }
+  function copyToClipBoard(){
+    window.navigator.clipboard.writeText(password)
+  }
 
-  useEffect(() => generatePass(), [length]);
+  useEffect(() => generatePass(), [length, isNumberAllowed, isSymbolAllowed]);
 
   return (
     <div className="w-full h-screen bg-neutral-950 p-5 flex justify-center text-white text-2xl font-medium">
@@ -47,7 +47,9 @@ function PassGenerator() {
             type="text"
             readOnly
           />
-          <button className="bg-blue-600 py-2 px-3 rounded-r-2xl cursor-pointer">Copy</button>
+          <button onClick={copyToClipBoard} className="bg-blue-600 py-2 px-3 rounded-r-2xl cursor-pointer">
+            Copy
+          </button>
           <div className="flex gap-2 mt-5 text-orange-300">
             <input
               type="range"
@@ -88,7 +90,12 @@ function PassGenerator() {
             <label htmlFor="chars">Symbols</label>
           </div>
         </div>
-          <button className="bg-blue-600 py-2 px-6 rounded-2xl cursor-pointer" onClick={()=>generatePass()}>Generate Password</button>
+        <button
+          className="bg-blue-600 py-2 px-6 rounded-2xl cursor-pointer"
+          onClick={() => generatePass()}
+        >
+          Generate Password
+        </button>
       </div>
     </div>
   );
