@@ -1,10 +1,12 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 function PassGenerator() {
   const [length, setLength] = useState(8);
   const [isNumberAllowed, setIsNumberAllowed] = useState(0);
   const [isSymbolAllowed, setIsSymbolAllowed] = useState(0);
   const [password, setPassword] = useState("");
+
+  const passwordRef = useRef(null)
 
   const generatePass = useCallback(() => {
     const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -28,8 +30,9 @@ function PassGenerator() {
   function changePermission(prevValue) {
     return prevValue ? 0 : 1;
   }
-  function copyToClipBoard(){
+  const copyToClipBoard = ()=>{
     window.navigator.clipboard.writeText(password)
+    passwordRef.current ?.select()
   }
 
   useEffect(() => generatePass(), [length, isNumberAllowed, isSymbolAllowed]);
@@ -46,6 +49,7 @@ function PassGenerator() {
             className="bg-white rounded-l-2xl w-lg py-2 px-3 text-orange-500 outline-none"
             type="text"
             readOnly
+            ref={passwordRef}
           />
           <button onClick={copyToClipBoard} className="bg-blue-600 py-2 px-3 rounded-r-2xl cursor-pointer">
             Copy
