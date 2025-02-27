@@ -39,7 +39,7 @@ function CurrencyConverter() {
             >
               <div className="w-full mb-1">
                 <InputBox
-                  label={from}
+                  label="From"
                   amount={amount}
                   currencyOptions={options}
                   onCurrencyChange={(currency) => setFrom(currency)}
@@ -57,7 +57,7 @@ function CurrencyConverter() {
               </div>
               <div className="w-full mb-1">
                 <InputBox
-                  label={to}
+                  label="To"
                   amount={convertedAmount}
                   currencyOptions={options}
                   onCurrencyChange={(currency) => setTo(currency)}
