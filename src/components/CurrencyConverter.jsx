@@ -14,14 +14,13 @@ function CurrencyConverter() {
   const convert = () => {
     setConvertedAmount(amount * currencyInfo[to]);
   };
-  useEffect(() => {
-    if (currencyInfo[to]) {
-      setConvertedAmount(amount * currencyInfo[to]);
-    }
-  }, [currencyInfo, amount, to]);
+
   const swap = () => {
+    const tempAmount = amount;
     setFrom(to);
     setTo(from);
+    setAmount(convertedAmount);
+    setConvertedAmount(tempAmount);
   };
   return (
     <>
@@ -61,17 +60,17 @@ function CurrencyConverter() {
                   amount={convertedAmount}
                   currencyOptions={options}
                   onCurrencyChange={(currency) => setTo(currency)}
-                  onAmountChange={(amount) => setAmount(amount)}
                   selectedCurrency={to}
                   amountDisabled
                 />
-                <button
+                
+              </div>
+              <button
                   type="submit"
                   className="w-full px-4 py-3 text-white bg-blue-600 rounded-lg"
                 >
-                  Convert
+                  Convert {from.toUpperCase()} to {to.toUpperCase()}
                 </button>
-              </div>
             </form>
           </div>
         </div>
