@@ -1,1 +1,1 @@
-# A series of code to practice react + vite + tailwindss
+# A series of code to practice react + vite + tailwindcss
