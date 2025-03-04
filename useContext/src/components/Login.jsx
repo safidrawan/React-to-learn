@@ -8,7 +8,8 @@ function Login() {
   const {setUser} = useContext(UserContext)
 
   const handleSubmit = (e) =>{
-    // Prevent default
+    e.preventDefault();
+    setUser({username,password})
   }
 
   return (
@@ -26,7 +27,7 @@ function Login() {
       onChange={(e)=>setPassword(e.target.value)}
       placeholder="Password"
       />
-      <button onClick={handleSubmit}>Submit</button>
+      <button onClick={handleSubmit} className="cursor-pointer">Submit</button>
     </div>
   );
 }
