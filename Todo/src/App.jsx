@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { TodoProvider } from "./contexts/TodoContext";
-import TodoForm from "./components/TodoForm";
+import { TodoItem, TodoForm } from "./components/index";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -12,7 +12,7 @@ function App() {
   const updateTodo = (id, todo) => {
     setTodos((prevTodos) =>
       prevTodos.map((currentTodo) =>
-        currentTodo.id === id ? { ...currentTodo, ...todo } : currentTodo
+        currentTodo.id === id ? { ...currentTodo, message:todo.todo } : currentTodo
       )
     );
   };
@@ -28,7 +28,9 @@ function App() {
   };
 
   const deleteTodo = (id) => {
-    setTodos((prevTodos) => prevTodos.filter((currentTodo) => currentTodo.id !== id));
+    setTodos((prevTodos) =>
+      prevTodos.filter((currentTodo) => currentTodo.id !== id)
+    );
   };
 
   useEffect(() => {
@@ -43,9 +45,23 @@ function App() {
   }, [todos]);
 
   return (
-    <TodoProvider value={{ todos, addTodo, updateTodo, toggleComplete, deleteTodo }}>
-      <div className="text-2xl flex justify-center items-center p-20">
-        <TodoForm />
+    <TodoProvider
+      value={{ todos, addTodo, updateTodo, deleteTodo, toggleComplete }}
+    >
+      <div className="bg-[#172842] min-h-screen py-8">
+        <div className="w-full max-w-2xl mx-auto shadow-md rounded-lg px-4 py-3 text-white">
+          <h1 className="text-2xl font-bold text-center mb-8 mt-2">
+            Manage Your Todos
+          </h1>
+          <div className="mb-4">
+            <TodoForm />
+          </div>
+          <div className="flex flex-wrap gap-y-3">
+            {todos.map((todo) => (
+              <TodoItem key={todo.id} todo={todo} />
+            ))}
+          </div>
+        </div>
       </div>
     </TodoProvider>
   );
