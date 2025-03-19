@@ -3,5 +3,5 @@ const conf = {
     appwriteProjectId: String(process.env.REACT_APP_APPWRITE_PROJECT_ID),
     appwriteCollectionId: String(process.env.REACT_APP_APPWRITE_COLLECTION_ID),
     appwriteDatabaseId: String(process.env.REACT_APP_APPWRITE_DATABASE_ID),
-    appwriteBuketId: String(process.env.REACT_APP_APPWRITE_BUCKET_ID),
+    appwriteBucketId: String(process.env.REACT_APP_APPWRITE_BUCKET_ID),
 }
